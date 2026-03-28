@@ -4,6 +4,7 @@ from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_Res
 from PIL import Image
 import easyocr
 import io
+import numpy as np  
 
 class MultiModalExtractor:
     def __init__(self):
@@ -61,7 +62,8 @@ class MultiModalExtractor:
         # ==========================================
         # A. EXTRACT SEMANTIC/TEXT FEATURES (OCR)
         # ==========================================
-        ocr_results = self.ocr_reader.readtext(img)
+        img_np = np.array(img)  # <-- Convert PIL image to Numpy Array
+        ocr_results = self.ocr_reader.readtext(img_np)
         extracted_texts = []
         raw_s_boxes = []
         
